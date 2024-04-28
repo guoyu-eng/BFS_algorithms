@@ -116,3 +116,53 @@ if __name__ == "__main__":
     print("Number of pixels of the largest connected component whose starting point is 0:", max_connected_component_0)
     print("Number of pixels of the largest connected component whose starting point is 1:", max_connected_component_1)
 
+
+
+
+
+
+
+
+# 
+
+class Matrix:
+    def __init__(self, matrix):
+        self.matrix = matrix
+        self.visited = set()
+    def flood_fill(self, start):
+        queue = [start]
+        while queue:
+            current = queue.pop(0)
+            self.visited.add(current)
+            for neighbor in self.get_neighbors(current):
+                if neighbor not in self.visited and self.is_valid(neighbor):
+                    queue.append(neighbor)https://github.com/guoyu-eng/BFS_algorithms/blob/main/bfs.py
+    def get_neighbors(self, point):
+        x, y = point
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        return [(x + dx, y + dy) for dx, dy in directions]
+
+    def is_valid(self, point):
+        x, y = point
+        return 0 <= x < len(self.matrix) and 0 <= y < len(self.matrix[0]) and self.matrix[x][y] == 0
+def main():
+    matrix_data = [[1,1,0,0,1,1],
+                   [0,1,0,1,1,0],
+                   [1,0,0,0,1,0],
+                   [0,1,1,0,0,1],
+                   [1,0,1,1,1,1]]
+    matrix = Matrix(matrix_data)
+    matrix.flood_fill((0, 0))
+    max_connected_component_size = len(matrix.visited)
+    print("Maximum connected component size:", max_connected_component_size)
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
